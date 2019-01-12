@@ -1,2 +1,2 @@
 # iOSApp.AuthenticatedCore
-Base classes for developing iOS apps requiring authentcation
+Base classes for developing iOS apps requiring authentication
