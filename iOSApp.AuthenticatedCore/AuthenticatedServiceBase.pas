@@ -35,6 +35,9 @@ type
 
     end;
 
+  public
+    property &delegate:IServiceEvents;
+
   end;
 
 end.
