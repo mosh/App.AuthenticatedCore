@@ -64,6 +64,11 @@ type
       end;
     end;
 
+    method launch; override;
+    begin
+      inherited launch;
+    end;
+
   end;
 
 end.
