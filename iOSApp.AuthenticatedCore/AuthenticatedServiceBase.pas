@@ -10,10 +10,26 @@ uses
 
 type
 
-  AuthenticatedServiceBase = public abstract class(ServiceBase,IAuthenticationInterestedService)
+  AuthenticatedServiceBase = public class(ServiceBase,IAuthenticationInterestedService)
   protected
-    method newSession(auth:Authenticated); abstract;
-    method noSession; abstract;
+
+    method newSession(auth:Authenticated); virtual;
+    begin
+      Authorized(auth);
+    end;
+
+    method noSession; virtual;
+    begin
+    end;
+
+    method clearMySettings; virtual;
+    begin
+      self.AuthenticationService.clear;
+      Storage.clearMySettings;
+
+    end;
+
+
 
   private
     {IAuthenticationInterestedService}
@@ -76,6 +92,46 @@ type
 
       end;
 
+    method Authorized(auth:Authenticated; overwrite:Boolean := false );
+    begin
+      var authenticated := Storage.AuthenticatedUser;
+      var updatedStore := false;
+
+      if(assigned(authenticated))then
+      begin
+        if(authenticated.Email <> auth.Email)then
+        begin
+
+          if(overwrite = false)then
+          begin
+            &delegate:OnAuthorizingDifference(authenticated.Email, auth.Email);
+          end
+          else
+          begin
+            Storage.MergeAuthenticated(auth);
+            clearMySettings;
+            updatedStore := true;
+          end;
+
+        end
+        else
+        begin
+          Storage.MergeAuthenticated(auth);
+          updatedStore := true;
+        end;
+
+      end
+      else
+      begin
+        Storage.MergeAuthenticated(auth);
+        updatedStore := true;
+      end;
+
+      if(updatedStore)then
+      begin
+        self.delegate:OnAuthorized;
+      end;
+    end;
 
   end;
 
