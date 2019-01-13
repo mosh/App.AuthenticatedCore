@@ -14,5 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IAuthenticationInterestedService.pas" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Authenticated.pas" />
     <Compile Include="$(MSBuildThisFileDirectory)IAuthorizedServiceEventReceiver.pas" />
+    <Compile Include="$(MSBuildThisFileDirectory)IServiceEvents.pas" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceTypes.pas" />
   </ItemGroup>
 </Project>

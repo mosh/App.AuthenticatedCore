@@ -1,5 +1,9 @@
 ﻿namespace iOSApp.AuthenticatedCore;
 
+uses
+  Foundation,
+  iOSApp.Core;
+
 type
 
   IAuthorizedServiceEventReceiver = public interface(IServiceEventReceiver)
