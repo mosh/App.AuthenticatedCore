@@ -8,7 +8,7 @@ uses
 
 type
 
-  AuthenticatedAppCoordinatorBase = public class(AppCordinatorBase, IAuthenticationInterestedParty,IServiceEvents)
+  AuthenticatedAppCoordinatorBase = public abstract class(AppCordinatorBase, IAuthenticationInterestedParty,IServiceEvents)
 
   private
 
@@ -90,9 +90,13 @@ type
     begin
       inherited initWithAppDelegate(appDelegate);
     end;
+
+
+
   protected
     interestedService:IAuthenticationInterestedService;
 
+    method loadAuthenticationValues: tuple of (clientId:String, issuer:String, redirect:String, stateKey:String);abstract;
 
   public
 
@@ -114,6 +118,9 @@ type
         self.interestedService := service;
 
         service.&delegate := self;
+
+        var values := loadAuthenticationValues;
+        self.AuthenticationService.Setup(values.issuer, values.clientId, values.redirect, values.stateKey);
 
 
       end;
