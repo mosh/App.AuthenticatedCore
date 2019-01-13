@@ -16,5 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IAuthorizedServiceEventReceiver.pas" />
     <Compile Include="$(MSBuildThisFileDirectory)IServiceEvents.pas" />
     <Compile Include="$(MSBuildThisFileDirectory)ServiceTypes.pas" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\AuthenticatedStorageBase.pas" />
   </ItemGroup>
 </Project>

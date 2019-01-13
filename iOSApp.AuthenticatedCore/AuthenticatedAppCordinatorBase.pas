@@ -11,7 +11,6 @@ type
   AuthenticatedAppCoordinatorBase = public class(AppCordinatorBase, IAuthenticationInterestedParty,IServiceEvents)
 
   private
-    interestedService:IAuthenticationInterestedService;
 
     method stateChanged(info:UserInfo);
     begin
@@ -91,11 +90,17 @@ type
     begin
       inherited initWithAppDelegate(appDelegate);
     end;
-
-
+  protected
+    interestedService:IAuthenticationInterestedService;
 
 
   public
+
+    property AuthenticationService:AuthenticationService read
+      begin
+        exit AuthenticationAppDelegate(UIApplication.sharedApplication.&delegate).AuthenticationService;
+      end;
+
 
     method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase) : instancetype;
     begin
@@ -103,8 +108,10 @@ type
 
       if(assigned(self))then
       begin
+
+        self.AuthenticationService.&delegate := self;
+
         self.interestedService := service;
-        AuthenticationService.Instance.&delegate := self;
 
         service.&delegate := self;
 
