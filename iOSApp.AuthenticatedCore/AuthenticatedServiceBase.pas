@@ -194,7 +194,11 @@ type
   public
     property &delegate:IServiceEvents;
 
-    property Storage:AuthenticatedStorageBase read;
+    method Storage:AuthenticatedStorageBase; reintroduce;
+    begin
+      exit inherited Storage as AuthenticatedStorageBase;
+    end;
+
 
     method currentAuthenticated:Authenticated;
     begin

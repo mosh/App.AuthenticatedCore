@@ -50,7 +50,6 @@ type
 
     end;
 
-
     method AuthenticatedUser:Authenticated;
     begin
       var all := Authenticated.allObjectsInRealm(RLMRealm.defaultRealm);
@@ -62,11 +61,6 @@ type
       begin
         exit nil;
       end;
-    end;
-
-    method launch; override;
-    begin
-      inherited launch;
     end;
 
   end;
