@@ -5,7 +5,8 @@ uses
 
 type
 
-  StartupDelegate = public block ();
-  BuildStartupDelegate = public block ():not nullable NSBlockOperation;
+  StartupDelegate = public block;
+
+  BuildStartupDelegate = public block: Tuple of (BlockResults: array of Integer, InnerBlock : Block);
 
 end.

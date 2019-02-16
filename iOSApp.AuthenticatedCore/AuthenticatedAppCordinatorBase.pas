@@ -86,7 +86,7 @@ type
 
     end;
 
-    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate): instancetype;
+    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate): InstanceType;
     begin
       inherited initWithAppDelegate(appDelegate);
     end;
@@ -100,13 +100,12 @@ type
 
   public
 
-    property AuthenticationService:AuthenticationService read
-      begin
+    property AuthenticationService:AuthenticationService read begin
         exit AuthenticationAppDelegate(UIApplication.sharedApplication.&delegate).AuthenticationService;
       end;
 
 
-    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase) : instancetype;
+    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase) : InstanceType;
     begin
       self := initWithAppDelegate(appDelegate);
 

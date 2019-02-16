@@ -5,4 +5,7 @@ type
 
     InitiatedActionEnumeration = public enum(Unknown, Sync, Startup);
 
+    StateEnumeration = public enum(None, Sync, Startup);
+
+
 end.
