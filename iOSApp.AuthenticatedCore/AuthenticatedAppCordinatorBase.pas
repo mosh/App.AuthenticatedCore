@@ -86,7 +86,7 @@ type
 
     end;
 
-    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate): instancetype;
+    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate): InstanceType;
     begin
       inherited initWithAppDelegate(appDelegate);
     end;
@@ -106,7 +106,7 @@ type
       end;
 
 
-    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase) : instancetype;
+    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase) : InstanceType;
     begin
       self := initWithAppDelegate(appDelegate);
 
