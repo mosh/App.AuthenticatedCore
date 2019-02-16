@@ -100,8 +100,7 @@ type
 
   public
 
-    property AuthenticationService:AuthenticationService read
-      begin
+    property AuthenticationService:AuthenticationService read begin
         exit AuthenticationAppDelegate(UIApplication.sharedApplication.&delegate).AuthenticationService;
       end;
 
