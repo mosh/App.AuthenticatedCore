@@ -174,6 +174,38 @@ type
       end;
     end;
 
+    method dispatcher(results : List<not nullable operationTypesEnumeration>;callback:SimpleDelegate);
+    begin
+      if(anyCantContinue(results))then
+      begin
+      end
+      else if(anyExceptions(results))then
+      begin
+        NSOperationQueue.mainQueue.addOperationWithBlock(method begin
+          &delegate:OnError(nil);
+        end);
+
+      end
+      else if(anyAuthenticationRequired(results))then
+      begin
+        NSOperationQueue.mainQueue.addOperationWithBlock(method begin
+          &delegate:OnNotAuthorized(InitiatedActionEnumeration.Startup);
+        end);
+      end
+      else
+      begin
+        if(assigned(callback))then
+        begin
+          NSOperationQueue.mainQueue.addOperationWithBlock(method begin
+            callback;
+          end);
+        end;
+
+      end;
+
+    end;
+
+
 
 
     method Ready:Boolean;
@@ -265,19 +297,13 @@ type
     end;
 
 
-    //method AuthenticatedStartup(callback:StartupDelegate; buildStartup:BuildStartupDelegate; reload:Boolean);
-
-    method AuthenticatedStartup(callback:StartupDelegate;
-      //blockDefinition:Tuple of (BlockResults: array of Integer, InnerBlock : Block); reload:Boolean);
-      results : List<not nullable operationTypesEnumeration>; innerBlock:Block; reload:Boolean);
+    method AuthenticatedStartup(callback:SimpleDelegate; results : List<not nullable operationTypesEnumeration>; innerBlock:Block; reload:Boolean);
     begin
 
 
       var outerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(method
       begin
         NSLog('Getting startup blocks..');
-
-        //var results := blockDefinition.BlockResults;
 
         var auth := Storage.AuthenticatedUser;
 
@@ -327,30 +353,8 @@ type
 
         end;
 
-        if(anyCantContinue(results))then
-        begin
-        end
-        else if(anyExceptions(results))then
-        begin
+        dispatcher(results,callback);
 
-          NSOperationQueue.mainQueue.addOperationWithBlock(method begin
-              &delegate:OnError(nil);
-            end);
-
-        end
-        else if(anyAuthenticationRequired(results))then
-        begin
-          NSOperationQueue.mainQueue.addOperationWithBlock(method begin
-              &delegate:OnNotAuthorized(InitiatedActionEnumeration.Startup);
-            end);
-        end
-        else
-        begin
-          NSOperationQueue.mainQueue.addOperationWithBlock(method begin
-              callback;
-            end);
-
-        end;
 
       end);
 

@@ -5,7 +5,7 @@ uses
 
 type
 
-  StartupDelegate = public block;
+  SimpleDelegate = public block;
 
   BuildStartupDelegate = public block: Tuple of (BlockResults: array of Integer, InnerBlock : Block);
 
