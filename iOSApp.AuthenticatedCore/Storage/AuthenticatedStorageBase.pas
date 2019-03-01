@@ -3,7 +3,7 @@
 uses
   iOSApp.AuthenticatedCore.Models,
   iOSApp.Core.Storage,
-  Realm.Realm;
+  Realm;
 
 type
 
