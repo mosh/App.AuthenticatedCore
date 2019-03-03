@@ -86,12 +86,6 @@ type
 
     end;
 
-    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate): InstanceType;
-    begin
-      inherited initWithAppDelegate(appDelegate);
-    end;
-
-
 
   protected
     interestedService:IAuthenticationInterestedService;
