@@ -237,21 +237,18 @@ type
     property AccessToken:String read
       begin
 
-        var authenticated := Storage.AuthenticatedUser;
-        if(assigned(authenticated))then
+        if(not assigned(AppDelegate.AuthenticationService.AuthState))then
         begin
-          if(AppDelegate.AuthenticationService.Expired)then
-          begin
-            NSLog('token has expired, call refresh...');
-            AppDelegate.AuthenticationService.refresh;
-          end;
-          exit AppDelegate.AuthenticationService.AccessToken;
-        end
-        else
-        begin
-          NSLog('Not authenticated, no accessToken');
+          NSLog('No AuthState');
+          exit '';
         end;
-        exit '';
+
+        if(AppDelegate.AuthenticationService.Expired)then
+        begin
+          NSLog('Access token has expired, calling refresh');
+          AppDelegate.AuthenticationService.refresh;
+        end;
+        exit AppDelegate.AuthenticationService.AccessToken;
 
       end;
 
@@ -300,15 +297,14 @@ type
     method AuthenticatedStartup(callback:SimpleDelegate; results : List<not nullable operationTypesEnumeration>; innerBlock:Block; reload:Boolean);
     begin
 
-
       var outerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(method
       begin
-        NSLog('Getting startup blocks..');
+        var authenticatedUser := Storage.AuthenticatedUser;
 
-        var auth := Storage.AuthenticatedUser;
-
-        if ((not assigned(auth)) and (offline))then
+        if ((not assigned(authenticatedUser)) and (offline))then
         begin
+
+          NSLog('No authenticatedUser and offline');
 
           NSOperationQueue.mainQueue.addOperationWithBlock(method begin
               var e:= new NoNetworkConnectionException withName('ProxyException') reason('Authentication required but no network connection') userInfo(nil) ;
@@ -317,9 +313,8 @@ type
 
           SetResults(results) withValue(operationTypesEnumeration.UnableToContinue);
 
-
         end
-        else if((not assigned(auth)) or (assigned(auth) and reload ))then
+        else if((not assigned(authenticatedUser)) or (assigned(authenticatedUser) and reload ))then
         begin
 
           var assignedAccessToken := self.AuthenticationService.AccessToken;
@@ -327,34 +322,26 @@ type
           if(String.IsNullOrEmpty(assignedAccessToken))then
           begin
             NSLog('No access token not requesting data');
-
             SetResults(results) withValue(operationTypesEnumeration.authenticationRequired)
-
           end
           else
           begin
-
             var innerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(innerBlock);
-
             var innerQueue: NSOperationQueue := new NSOperationQueue();
-            NSLog('Starting startup blocks..');
             innerQueue.addOperation(innerExecutionBlock);
             innerQueue.waitUntilAllOperationsAreFinished;
-            NSLog('Finished startup blocks..');
-
           end;
 
         end
         else
         begin
-          NSLog('Found Auth row');
+          NSLog('authenticatedUser present');
 
           SetResults(results) withValue(operationTypesEnumeration.completed)
 
         end;
 
         dispatcher(results,callback);
-
 
       end);
 
