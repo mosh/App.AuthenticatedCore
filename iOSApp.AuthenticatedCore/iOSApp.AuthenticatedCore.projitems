@@ -19,5 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Storage\AuthenticatedStorageBase.pas" />
     <Compile Include="$(MSBuildThisFileDirectory)ServiceDelegates.pas" />
     <Compile Include="$(MSBuildThisFileDirectory)BlocksWithAuthorizationHelper.pas" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Claim.pas" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ClaimTypes.pas" />
   </ItemGroup>
 </Project>
