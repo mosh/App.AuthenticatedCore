@@ -1,0 +1,22 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# RemObjects Fire
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "iOSApp.AuthenticatedCore", "iOSApp.AuthenticatedCore.elements", "{32253DE3-7496-4056-89D2-187684F9B791}"
+EndProject
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "libiOSApp.AuthenicatedCore", "libiOSApp.AuthenicatedCore.elements", "{D3FB83CB-9440-45FE-8C60-C7BD308A8213}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3FB83CB-9440-45FE-8C60-C7BD308A8213}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{D3FB83CB-9440-45FE-8C60-C7BD308A8213}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{D3FB83CB-9440-45FE-8C60-C7BD308A8213}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{D3FB83CB-9440-45FE-8C60-C7BD308A8213}.Release|AnyCPU.Build.0 = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
