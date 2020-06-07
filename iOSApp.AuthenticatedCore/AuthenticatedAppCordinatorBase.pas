@@ -113,7 +113,7 @@ type
         service.&delegate := self;
 
         var values := loadAuthenticationValues;
-        self.AuthenticationService.Setup(values.issuer, values.clientId, values.redirect, values.stateKey);
+        self.AuthenticationService.setup(values.issuer, values.clientId, values.redirect, values.stateKey);
 
 
       end;

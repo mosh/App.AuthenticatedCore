@@ -79,7 +79,7 @@ type
         if(String.IsNullOrEmpty(value))then
         begin
 
-          NSOperationQueue.mainQueue().addOperationWithBlock(method()
+          NSOperationQueue.mainQueue.addOperationWithBlock(method()
           begin
             &delegate:OnNotAuthorized(initiatedAction);
           end);
@@ -93,7 +93,7 @@ type
           except
             on a:AuthenticationRequiredException do
             begin
-              NSOperationQueue.mainQueue().addOperationWithBlock(method()
+              NSOperationQueue.mainQueue.addOperationWithBlock(method()
               begin
                 &delegate:OnNotAuthorized(initiatedAction);
               end);
@@ -101,7 +101,7 @@ type
             on h:HttpStatusCodeException do
             begin
 
-              NSOperationQueue.mainQueue().addOperationWithBlock(method()
+              NSOperationQueue.mainQueue.addOperationWithBlock(method()
               begin
                 &delegate:OnError(h);
               end);
@@ -111,7 +111,7 @@ type
             on e:NSException do
             begin
 
-              NSOperationQueue.mainQueue().addOperationWithBlock(method()
+              NSOperationQueue.mainQueue.addOperationWithBlock(method()
               begin
                 &delegate:OnError(e);
               end);
@@ -294,7 +294,7 @@ type
     end;
 
 
-    method AuthenticatedStartup(callback:SimpleDelegate; results : List<not nullable operationTypesEnumeration>; innerBlock:Block; reload:Boolean);
+    method AuthenticatedStartup(results : List<not nullable operationTypesEnumeration>; innerBlock:Block; reload:Boolean; callback:SimpleDelegate);
     begin
 
       var outerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(method
