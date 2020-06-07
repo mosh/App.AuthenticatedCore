@@ -4,11 +4,11 @@
     <RootNamespace>libiOSApp.AuthenicatedCore</RootNamespace>
     <ProjectGuid>{D3FB83CB-9440-45FE-8C60-C7BD308A8213}</ProjectGuid>
     <OutputType>StaticLibrary</OutputType>
-    <AssemblyName>libiOSApp.AuthenicatedCore</AssemblyName>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <SDK>iOS</SDK>
     <MangleTypeNames>True</MangleTypeNames>
     <CreateHeaderFile>True</CreateHeaderFile>
+    <BinaryName>libiOSApp.AuthenticatedCore</BinaryName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>False</Optimize>
@@ -39,7 +39,6 @@
       <Private>True</Private>
     </RemoteProjectReference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Toffee.targets" />
   <Import Project="iOSApp.AuthenticatedCore.projitems" Label="Shared" />
   <Import Project="iOSApp.AuthenticatedCore.projitems" Label="Shared" />
