@@ -210,7 +210,7 @@ type
 
     method Ready:Boolean;
     begin
-      exit assigned(AccessToken) and (AccessToken.length > 0);
+      exit assigned(AccessToken) and (AccessToken.Length > 0);
     end;
 
 

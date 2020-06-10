@@ -32,6 +32,9 @@
     <RemoteProjectReference Include="github.com/Mosh/iOSApp.Core/libiOSApp.Core.elements:*">
       <Private>True</Private>
     </RemoteProjectReference>
+    <RemoteProjectReference Include="github.com/mosh/ImportSolution/AppAuth.elements:*">
+      <Private>True</Private>
+    </RemoteProjectReference>
     <RemoteProjectReference Include="github.com/mosh/ImportSolution/Realm.elements:*">
       <Private>True</Private>
     </RemoteProjectReference>
