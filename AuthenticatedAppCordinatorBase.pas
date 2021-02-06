@@ -2,6 +2,7 @@
 
 uses
   AppAuth.Authentication,
+  AppAuth.Authentication.Models,
   iOSApp.Core,
   Moshine.Foundation,
   UIKit;
@@ -17,7 +18,7 @@ type
       interestedService.stateChanged(info);
     end;
 
-    method OnError(e:Exception);
+    method OnError(e:NSException);
     begin
 
       if(e is NoNetworkConnectionException)then
@@ -35,10 +36,18 @@ type
 
       if(assigned(receiver))then
       begin
+
+        {$IF TOFFEE}
         if receiver.respondsToSelector(selector(OnError:))then
         begin
           receiver.OnError(e);
         end;
+        {$ENDIF}
+        {$IF ISLAND}
+        receiver.OnError(e);
+        {$ENDIF}
+
+
       end;
     end;
 
@@ -48,11 +57,15 @@ type
 
       if(assigned(receiver))then
       begin
+        {$IF TOFFEE}
         if receiver.respondsToSelector(selector(OnNotAuthorized:))then
         begin
           IAuthorizedServiceEventReceiver(receiver).OnNotAuthorized(initiatedAction);
         end;
-
+        {$ENDIF}
+        {$IF ISLAND}
+        IAuthorizedServiceEventReceiver(receiver).OnNotAuthorized(initiatedAction);
+        {$ENDIF}
       end;
     end;
 
@@ -63,10 +76,16 @@ type
 
       if(assigned(receiver))then
       begin
+
+        {$IF TOFFEE}
         if receiver.respondsToSelector(selector(OnAuthorized))then
         begin
           IAuthorizedServiceEventReceiver(receiver).OnAuthorized;
         end;
+        {$ENDIF}
+        {$IF ISLAND}
+        IAuthorizedServiceEventReceiver(receiver).OnAuthorized;
+        {$ENDIF}
 
       end;
     end;
@@ -77,10 +96,16 @@ type
 
       if(assigned(receiver))then
       begin
+
+        {$IF TOFFEE}
         if receiver.respondsToSelector(selector(OnAuthorizingWithNewEmail:fromOldEmail:))then
         begin
           IAuthorizedServiceEventReceiver(receiver).OnAuthorizingWithNewEmail(newEmail) fromOldEmail(oldEmail);
         end;
+        {$ENDIF}
+        {$IF ISLAND}
+        IAuthorizedServiceEventReceiver(receiver).OnAuthorizingWithNewEmail(newEmail) fromOldEmail(oldEmail);
+        {$ENDIF}
 
       end;
 
@@ -99,26 +124,19 @@ type
       end;
 
 
-    method initWithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase) : InstanceType;
+    constructor WithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase);
     begin
-      self := initWithAppDelegate(appDelegate);
+      inherited constructor WithAppDelegate(appDelegate);
 
-      if(assigned(self))then
-      begin
+      self.AuthenticationService.&delegate := self;
 
-        self.AuthenticationService.&delegate := self;
+      self.interestedService := service;
 
-        self.interestedService := service;
+      service.&delegate := self;
 
-        service.&delegate := self;
+      var values := loadAuthenticationValues;
+      self.AuthenticationService.setup(values.issuer, values.clientId, values.redirect, values.stateKey);
 
-        var values := loadAuthenticationValues;
-        self.AuthenticationService.setup(values.issuer, values.clientId, values.redirect, values.stateKey);
-
-
-      end;
-
-      exit self;
     end;
 
   end;

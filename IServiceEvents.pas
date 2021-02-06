@@ -7,7 +7,7 @@ type
 
   IServiceEvents = public Interface
 
-    method OnError(e:Exception);
+    method OnError(e:NSException);
 
     method OnNotAuthorized(initiatedAction:InitiatedActionEnumeration);
 

@@ -2,6 +2,7 @@
 
 uses
   AppAuth.Authentication,
+  AppAuth.Authentication.Models,
   Foundation,
   iOSApp.Core,
   iOSApp.AuthenticatedCore.Models,
@@ -127,7 +128,7 @@ type
 
     end;
 
-    method anyExceptions(values:sequence of nullable operationTypesEnumeration):Boolean;
+    method anyExceptions(values:sequence of operationTypesEnumeration):Boolean;
     begin
       for each value in values do
       begin
@@ -140,7 +141,7 @@ type
 
     end;
 
-    method anyCantContinue(values:sequence of nullable operationTypesEnumeration):Boolean;
+    method anyCantContinue(values:sequence of operationTypesEnumeration):Boolean;
     begin
       for each value in values do
         begin
@@ -154,7 +155,7 @@ type
     end;
 
 
-    method anyAuthenticationRequired(values:sequence of nullable operationTypesEnumeration):Boolean;
+    method anyAuthenticationRequired(values:sequence of operationTypesEnumeration):Boolean;
     begin
       for each value in values do
       begin
@@ -166,7 +167,7 @@ type
       exit false;
     end;
 
-    method SetResults(results:List<not nullable operationTypesEnumeration>) withValue(value:operationTypesEnumeration);
+    method SetResults(results:List<operationTypesEnumeration>) withValue(value:operationTypesEnumeration);
     begin
       for x:Integer := 0 to results.Count-1 do
       begin
@@ -174,7 +175,7 @@ type
       end;
     end;
 
-    method dispatcher(results : List<not nullable operationTypesEnumeration>;callback:SimpleDelegate);
+    method dispatcher(results : sequence of operationTypesEnumeration;callback:SimpleDelegate);
     begin
       if(anyCantContinue(results))then
       begin
@@ -204,8 +205,6 @@ type
       end;
 
     end;
-
-
 
 
     method Ready:Boolean;
@@ -294,7 +293,7 @@ type
     end;
 
 
-    method AuthenticatedStartup(results : List<not nullable operationTypesEnumeration>; innerBlock:Block; reload:Boolean; callback:SimpleDelegate);
+    method AuthenticatedStartup(results : List<operationTypesEnumeration>; innerBlock:Block; reload:Boolean; callback:SimpleDelegate);
     begin
 
       var outerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(method
@@ -326,8 +325,10 @@ type
           end
           else
           begin
-            var innerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(innerBlock);
-            var innerQueue: NSOperationQueue := new NSOperationQueue();
+
+            var innerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(NSProgressUnpublishingHandler(innerBlock));
+            var innerQueue: NSOperationQueue := new NSOperationQueue;
+
             innerQueue.addOperation(innerExecutionBlock);
             innerQueue.waitUntilAllOperationsAreFinished;
           end;
