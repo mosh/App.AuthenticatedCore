@@ -123,11 +123,8 @@ type
         exit AuthenticationAppDelegate(UIApplication.sharedApplication.&delegate).AuthenticationService;
       end;
 
-
-    constructor WithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase);
+    method initialize(service:AuthenticatedServiceBase);
     begin
-      inherited constructor WithAppDelegate(appDelegate);
-
       self.AuthenticationService.&delegate := self;
 
       self.interestedService := service;
@@ -138,6 +135,25 @@ type
       self.AuthenticationService.setup(values.issuer, values.clientId, values.redirect, values.stateKey);
 
     end;
+
+
+    constructor WithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:AuthenticatedServiceBase);
+    begin
+      inherited constructor WithAppDelegate(appDelegate);
+
+      initialize(service);
+    end;
+
+    constructor WithNavigationController(navigationController:UINavigationController) Window(window:UIWindow) AppDelegate(appDelegate: not nullable IUIApplicationDelegate) ServiceRequiringAuthentication(service:AuthenticatedServiceBase);
+    begin
+
+      inherited constructor WithNavigationController(navigationController) Window(window) AppDelegate(appDelegate);
+
+      initialize(service);
+    end;
+
+
+
 
   end;
 
