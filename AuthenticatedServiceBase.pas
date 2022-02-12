@@ -69,7 +69,7 @@ type
         exit AppDelegate.AuthenticationService;
       end;
 
-    method Handle(someCode:block; initiatedAction:InitiatedActionEnumeration := InitiatedActionEnumeration.Unknown);
+    method HandleAuthenticatedServiceCall(someCode:block; initiatedAction:InitiatedActionEnumeration := InitiatedActionEnumeration.Unknown);
     begin
 
       var outerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(method()
