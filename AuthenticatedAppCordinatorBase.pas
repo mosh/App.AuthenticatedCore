@@ -1,4 +1,4 @@
-﻿namespace iOSApp.AuthenticatedCore;
+﻿namespace App.AuthenticatedCore;
 
 uses
   AppAuth.Authentication,

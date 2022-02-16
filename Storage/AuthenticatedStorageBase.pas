@@ -1,7 +1,7 @@
-﻿namespace iOSApp.AuthenticatedCore.Storage;
+﻿namespace App.AuthenticatedCore.Storage;
 
 uses
-  iOSApp.AuthenticatedCore.Models,
+  App.AuthenticatedCore.Models,
   iOSApp.Core.Storage,
   Realm;
 

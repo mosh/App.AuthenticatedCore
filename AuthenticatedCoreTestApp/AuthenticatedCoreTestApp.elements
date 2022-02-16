@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <RootNamespace>AuthenticatedCoreTestApp</RootNamespace>
+    <ProjectGuid>{E071E498-5320-41B7-9D05-561E62125722}</ProjectGuid>
+    <OutputType>Executable</OutputType>
+    <AssemblyName>AuthenticatedCoreTestApp</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>iOS</SDK>
+    <MangleTypeNames>True</MangleTypeNames>
+    <CreateAppBundle>True</CreateAppBundle>
+    <InfoPListFile>.\Resources\Info.plist</InfoPListFile>
+    <DefaultUses>RemObjects.Elements.RTL</DefaultUses>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Optimize>False</Optimize>
+    <OutputPath>.\Bin\Debug</OutputPath>
+    <ConditionalDefines>DEBUG;TRACE;</ConditionalDefines>
+    <GenerateDebugInfo>True</GenerateDebugInfo>
+    <EnableAsserts>True</EnableAsserts>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+    <GenerateDSym>True</GenerateDSym>
+    <CreateIPA>True</CreateIPA>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CoreGraphics" />
+    <Reference Include="Foundation" />
+    <Reference Include="UIKit" />
+    <Reference Include="rtl" />
+    <Reference Include="libToffee" />
+    <Reference Include="libElements" />
+    <ProjectReference Include="..\App.AuthenticatedCore.elements">
+      <HintPath>..\Bin\Debug\iOS\arm64\App.AuthenticatedCore.fx</HintPath>
+      <Project>{F36B3A7F-FBD8-427F-910D-989F4DF7CFF3}</Project>
+      <ProjectFile>..\App.AuthenticatedCore.elements</ProjectFile>
+    </ProjectReference>
+
+    <RemoteProjectReference Include="github.com/mosh/ImportSolution/Realm.elements:*">
+      <Private>True</Private>
+    </RemoteProjectReference>
+    <RemoteProjectReference Include="github.com/mosh/ImportSolution/AppAuth.elements:*">
+      <Private>True</Private>
+    </RemoteProjectReference>
+    <RemoteProjectReference Include="github.com/Mosh/Moshine.Foundation/Moshine.Foundation.elements:*">
+      <Private>True</Private>
+    </RemoteProjectReference>
+    <RemoteProjectReference Include="github.com/Mosh/iOSApp.Core/App.Core.elements:*">
+      <Private>True</Private>
+    </RemoteProjectReference>
+    <RemoteProjectReference Include="github.com/Mosh/AppAuth.Authentication/AppAuth.Authentication.elements:*">
+      <Private>True</Private>
+    </RemoteProjectReference>
+
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppDelegate.pas" />
+    <Compile Include="RootViewController.pas" />
+    <Content Include="Resources\Info.plist" />
+    <AssetCatalog Include="Resources\Images.xcassets">
+      <AppIcon>AppIcon</AppIcon>
+    </AssetCatalog>
+    <Xib Include="Resources\LaunchScreen.xib" />
+    <Compile Include="Services\TestService.pas" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Toffee.targets" />
+</Project>

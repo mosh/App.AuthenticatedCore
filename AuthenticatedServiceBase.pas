@@ -1,12 +1,12 @@
-﻿namespace iOSApp.AuthenticatedCore;
+﻿namespace App.AuthenticatedCore;
 
 uses
   AppAuth.Authentication,
   AppAuth.Authentication.Models,
   Foundation,
   iOSApp.Core,
-  iOSApp.AuthenticatedCore.Models,
-  iOSApp.AuthenticatedCore.Storage,
+  App.AuthenticatedCore.Models,
+  App.AuthenticatedCore.Storage,
   Moshine.Foundation,
   RemObjects.Elements.RTL,
   UIKit;

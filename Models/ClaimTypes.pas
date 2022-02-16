@@ -1,4 +1,4 @@
-﻿namespace iOSApp.AuthenticatedCore.Models;
+﻿namespace App.AuthenticatedCore.Models;
 
 type
   ClaimTypes = public class

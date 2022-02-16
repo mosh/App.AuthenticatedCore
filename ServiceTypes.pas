@@ -1,4 +1,4 @@
-﻿namespace iOSApp.AuthenticatedCore;
+﻿namespace App.AuthenticatedCore;
 
 type
     operationTypesEnumeration = public enum (none, completed, authenticationRequired, exception, UnableToContinue);
