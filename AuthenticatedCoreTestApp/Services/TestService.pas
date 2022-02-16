@@ -11,7 +11,7 @@ type
   public
     method SomeMethod;
     begin
-      HandleAuthenticatedServiceCall(method begin end);
+      //HandleAuthenticatedServiceCall(method begin end);
 
     end;
   end;

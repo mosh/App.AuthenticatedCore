@@ -129,7 +129,7 @@ type
 
       self.interestedService := service;
 
-      service.&delegate := self;
+      service.EventReceiver := self;
 
       var values := loadAuthenticationValues;
       self.AuthenticationService.setup(values.issuer, values.clientId, values.redirect, values.stateKey);

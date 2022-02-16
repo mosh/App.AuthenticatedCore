@@ -82,7 +82,7 @@ type
 
           NSOperationQueue.mainQueue.addOperationWithBlock(method()
           begin
-            &delegate:OnNotAuthorized(initiatedAction);
+            EventReceiver:OnNotAuthorized(initiatedAction);
           end);
         end
         else
@@ -96,7 +96,7 @@ type
             begin
               NSOperationQueue.mainQueue.addOperationWithBlock(method()
               begin
-                &delegate:OnNotAuthorized(initiatedAction);
+                EventReceiver:OnNotAuthorized(initiatedAction);
               end);
             end;
             on h:HttpStatusCodeException do
@@ -104,7 +104,7 @@ type
 
               NSOperationQueue.mainQueue.addOperationWithBlock(method()
               begin
-                &delegate:OnError(h);
+                EventReceiver:OnError(h);
               end);
 
 
@@ -114,7 +114,7 @@ type
 
               NSOperationQueue.mainQueue.addOperationWithBlock(method()
               begin
-                &delegate:OnError(e);
+                EventReceiver:OnError(e);
               end);
 
             end;
@@ -183,14 +183,14 @@ type
       else if(anyExceptions(results))then
       begin
         NSOperationQueue.mainQueue.addOperationWithBlock(method begin
-          &delegate:OnError(nil);
+          EventReceiver:OnError(nil);
         end);
 
       end
       else if(anyAuthenticationRequired(results))then
       begin
         NSOperationQueue.mainQueue.addOperationWithBlock(method begin
-          &delegate:OnNotAuthorized(InitiatedActionEnumeration.Startup);
+          EventReceiver:OnNotAuthorized(InitiatedActionEnumeration.Startup);
         end);
       end
       else
@@ -214,7 +214,7 @@ type
 
 
   public
-    property &delegate:IServiceEvents;
+    property EventReceiver:IServiceEvents;
 
     method Storage:AuthenticatedStorageBase; reintroduce;
     begin
@@ -263,7 +263,7 @@ type
 
           if(overwrite = false)then
           begin
-            &delegate:OnAuthorizingDifference(authenticated.Email, auth.Email);
+            EventReceiver:OnAuthorizingDifference(authenticated.Email, auth.Email);
           end
           else
           begin
@@ -288,7 +288,7 @@ type
 
       if(updatedStore)then
       begin
-        self.delegate:OnAuthorized;
+        EventReceiver:OnAuthorized;
       end;
     end;
 
@@ -307,7 +307,7 @@ type
 
           NSOperationQueue.mainQueue.addOperationWithBlock(method begin
               var e:= new NoNetworkConnectionException withName('ProxyException') reason('Authentication required but no network connection') userInfo(nil) ;
-              &delegate:OnError(e);
+              EventReceiver:OnError(e);
             end);
 
           SetResults(results) withValue(operationTypesEnumeration.UnableToContinue);
