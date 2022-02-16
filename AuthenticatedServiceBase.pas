@@ -13,7 +13,7 @@ uses
 
 type
 
-  AuthenticatedServiceBase = public class(ServiceBase,IAuthenticationInterestedService)
+  AuthenticatedServiceBase = public class//(/*ServiceBase,IAuthenticationInterestedService*/)
   protected
 
     method newSession(auth:Authenticated); virtual;
@@ -28,7 +28,7 @@ type
     method clearMySettings; virtual;
     begin
       self.AuthenticationService.clear;
-      Storage.clearMySettings;
+      //Storage.clearMySettings;
 
     end;
 
@@ -92,6 +92,7 @@ type
             someCode;
 
           except
+            /*
             on a:AuthenticationRequiredException do
             begin
               NSOperationQueue.mainQueue.addOperationWithBlock(method()
@@ -109,6 +110,7 @@ type
 
 
             end;
+            */
             on e:NSException do
             begin
 
@@ -122,9 +124,11 @@ type
 
         end;
 
+
       end);
 
-      workerQueue.addOperation(outerExecutionBlock);
+
+      //workerQueue.addOperation(outerExecutionBlock);
 
     end;
 
@@ -215,21 +219,21 @@ type
 
   public
     property &delegate:IServiceEvents;
-
+    /*
     method Storage:AuthenticatedStorageBase; reintroduce;
     begin
       exit inherited Storage as AuthenticatedStorageBase;
     end;
-
-
+    */
+    /*
     method currentAuthenticated:Authenticated;
     begin
       exit Storage.AuthenticatedUser;
     end;
-
+    */
     property localUser:Boolean read
       begin
-        exit assigned(Storage.AuthenticatedUser);
+        //exit assigned(Storage.AuthenticatedUser);
       end;
 
 
@@ -253,6 +257,7 @@ type
 
     method Authorized(auth:Authenticated; overwrite:Boolean := false );
     begin
+      /*
       var authenticated := Storage.AuthenticatedUser;
       var updatedStore := false;
 
@@ -275,14 +280,14 @@ type
         end
         else
         begin
-          Storage.MergeAuthenticated(auth);
+          //Storage.MergeAuthenticated(auth);
           updatedStore := true;
         end;
 
       end
       else
       begin
-        Storage.MergeAuthenticated(auth);
+        //Storage.MergeAuthenticated(auth);
         updatedStore := true;
       end;
 
@@ -290,12 +295,13 @@ type
       begin
         self.delegate:OnAuthorized;
       end;
+      */
     end;
 
 
     method AuthenticatedStartup(results : List<operationTypesEnumeration>; innerBlock:Block; reload:Boolean; callback:SimpleDelegate);
     begin
-
+      /*
       var outerExecutionBlock: NSBlockOperation := NSBlockOperation.blockOperationWithBlock(method
       begin
         var authenticatedUser := Storage.AuthenticatedUser;
@@ -347,7 +353,7 @@ type
       end);
 
       workerQueue.addOperation(outerExecutionBlock);
-
+    */
     end;
 
   end;

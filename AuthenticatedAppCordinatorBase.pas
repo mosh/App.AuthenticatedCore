@@ -7,8 +7,8 @@ uses
   Moshine.Foundation,
   UIKit;
 
-type
-
+//type
+  /*
   AuthenticatedAppCoordinatorBase = public abstract class(AppCordinatorBase, IAuthenticationInterestedParty,IServiceEvents)
 
   private
@@ -154,7 +154,7 @@ type
 
 
 
-
   end;
+  */
 
 end.

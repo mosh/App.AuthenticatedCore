@@ -42,14 +42,12 @@ type
 
     method numberOfSectionsInTableView(tableView: UITableView): NSInteger;
     begin
-      {$WARNING Potentially incomplete method implementation.}
       // Return the number of sections.
       result := 1;
     end;
 
     method tableView(tableView: UITableView) numberOfRowsInSection(section: NSInteger): NSInteger;
     begin
-      {$WARNING Potentially incomplete method implementation.}
       // Return the number of rows in the section.
       result := 0;
     end;

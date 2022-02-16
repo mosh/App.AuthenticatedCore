@@ -1,5 +1,5 @@
 ﻿namespace App.AuthenticatedCore.Storage;
-
+/*
 uses
   App.AuthenticatedCore.Models,
   iOSApp.Core.Storage,
@@ -64,5 +64,5 @@ type
     end;
 
   end;
-
+*/
 end.
