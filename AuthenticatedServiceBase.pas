@@ -13,7 +13,7 @@ uses
 
 type
 
-  AuthenticatedServiceBase = public class(ServiceBase,IAuthenticationInterestedService)
+  AuthenticatedServiceBase = public class(ServiceBase<AuthenticatedStorageBase>,IAuthenticationInterestedService)
   protected
 
     method newSession(auth:Authenticated); virtual;
