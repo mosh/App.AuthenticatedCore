@@ -6,6 +6,7 @@ uses
 type
 
   IAuthenticationInterestedService = public interface(IAuthenticationInterestedParty)
+    property EventReceiver:IServiceEvents;
   end;
 
 end.

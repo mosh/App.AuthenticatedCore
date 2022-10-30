@@ -9,8 +9,8 @@ uses
 
 type
 
-  AuthenticatedAppCoordinatorBase<A> = public abstract class(AppCordinatorBase,
-                                                             IAuthenticationInterestedParty,IServiceEvents) where A is AuthenticatedServiceBase;
+  AuthenticatedAppCoordinatorBase = public abstract class(AppCordinatorBase,
+                                                             IAuthenticationInterestedParty,IServiceEvents)
 
   private
 
@@ -124,7 +124,7 @@ type
         exit AuthenticationAppDelegate(UIApplication.sharedApplication.&delegate).AuthenticationService;
       end;
 
-    method initialize(service:A);
+    method initialize(service:IAuthenticationInterestedService);
     begin
       self.AuthenticationService.&delegate := self;
 
@@ -138,14 +138,14 @@ type
     end;
 
 
-    constructor WithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:A);
+    constructor WithAppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:IAuthenticationInterestedService);
     begin
       inherited constructor WithAppDelegate(appDelegate);
 
       initialize(service);
     end;
 
-    constructor WithNavigationController(navigationController:UINavigationController) Window(window:UIWindow) AppDelegate(appDelegate: not nullable IUIApplicationDelegate) ServiceRequiringAuthentication(service:A);
+    constructor WithNavigationController(navigationController:UINavigationController) Window(window:UIWindow) AppDelegate(appDelegate: not nullable IUIApplicationDelegate) ServiceRequiringAuthentication(service:IAuthenticationInterestedService);
     begin
 
       inherited constructor WithNavigationController(navigationController) Window(window) AppDelegate(appDelegate);
