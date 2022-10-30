@@ -217,12 +217,6 @@ type
   public
     property EventReceiver:IServiceEvents;
 
-    method Storage:AuthenticatedStorageBase; reintroduce;
-    begin
-      exit inherited Storage as AuthenticatedStorageBase;
-    end;
-
-
     method currentAuthenticated:Authenticated;
     begin
       exit Storage.AuthenticatedUser;
