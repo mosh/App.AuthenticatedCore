@@ -145,7 +145,7 @@ type
       initialize(service);
     end;
 
-    constructor WithNavigationController(navigationController:UINavigationController) Window(window:UIWindow) AppDelegate(appDelegate: not nullable IUIApplicationDelegate) ServiceRequiringAuthentication(service:IAuthenticationInterestedService);
+    constructor WithNavigationController(navigationController:UINavigationController) Window(window:UIWindow) AppDelegate(appDelegate: not nullable IUIApplicationDelegate) withServiceRequiringAuthentication(service:IAuthenticationInterestedService);
     begin
 
       inherited constructor WithNavigationController(navigationController) Window(window) AppDelegate(appDelegate);
